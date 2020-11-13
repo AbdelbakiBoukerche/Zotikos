@@ -2,20 +2,26 @@ import configparser
 import sys
 import logging
 import zotikos_exceptions
+from zotikos_parser import zotikos_parser
 
 
 def main():
     CORE_LOGGER = get_core_logger()
     CORE_LOGGER.setLevel(logging.INFO)
+    ZOTIKOS_PARSER = None
+
     # Get Configuration file
     try:
-        get_parser("./conf.ini")
+        ZOTIKOS_PARSER = zotikos_parser.ZotikosParser.get_instance(
+            config_file=get_parser("./conf.ini"))
     except zotikos_exceptions.ZotikosConfigFileNotFound as err:
         CORE_LOGGER.critical(err.msg)
         sys.exit(1)
     except zotikos_exceptions.ZotikosException as err:
         CORE_LOGGER.critical(err.msg)
         sys.exit(1)
+
+    print(ZOTIKOS_PARSER.get_ipv4_addrs())
 
 
 def get_parser(path: str):

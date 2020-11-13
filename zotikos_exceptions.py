@@ -16,3 +16,23 @@ class ZotikosConfigFileNotFound(ZotikosException):
 
     def __str__(self) -> str:
         return self.msg
+
+
+class ZotikosParserInstanceExists(ZotikosException):
+
+    def __init__(self, msg: str):
+        self.msg = msg
+        super().__init__(self.msg)
+
+    def __str__(self) -> str:
+        return self.msg
+
+
+class ZotikosParserOptionNotFound(ZotikosException):
+
+    def __init__(self, msg: str):
+        self.msg = msg
+        super().__init__(self.msg)
+
+    def __str__(self) -> str:
+        return self.msg
