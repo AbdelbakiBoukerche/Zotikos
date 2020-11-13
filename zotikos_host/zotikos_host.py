@@ -32,14 +32,14 @@ class ZotikosHost:
         except SSHException as err:
             self.CORE_LOGGER.error(err)
 
-        self.shell.enabled()
+        self.shell.enable()
 
-        def __del__(self):
-            self.shell.disconnect()
+    def __del__(self):
+        self.shell.disconnect()
 
-        def configure_hostname(self):
-            cmd = 'hostname ' + self.PARSER.get_hostnames()[self.index]
-            try:
-                self.shell.send_config_set(cmd, exit_config_mode=False)
-            except Exception as err:
-                self.CORE_LOGGER.error(err)
+    def configure_hostname(self):
+        cmd = 'hostname ' + self.PARSER.get_hostnames()[self.index]
+        try:
+            self.shell.send_config_set(cmd, exit_config_mode=False)
+        except Exception as err:
+            self.CORE_LOGGER.error(err)

@@ -1,8 +1,10 @@
 import configparser
 import sys
 import logging
+import time
 import zotikos_exceptions
 from zotikos_parser import zotikos_parser
+from zotikos_host import zotikos_host as ZH
 
 
 def main():
@@ -21,11 +23,17 @@ def main():
         CORE_LOGGER.critical(err.msg)
         sys.exit(1)
 
-    print(ZOTIKOS_PARSER.get_ipv4_addrs())
-    print(ZOTIKOS_PARSER.get_hostnames())
-    print(ZOTIKOS_PARSER.get_logon_banner())
-    print(ZOTIKOS_PARSER.get_vlans_names())
-    print(ZOTIKOS_PARSER.get_vlans_number())
+    username = "abdelbaki"
+    passwd = "passwd"
+    enabled_passwd = "cisco"
+
+    index = 0
+    for ip_addr in ZOTIKOS_PARSER.get_ipv4_addrs():
+        host = ZH.ZotikosHost(ip_addr, index, ZOTIKOS_PARSER, username,
+                              passwd, enabled_passwd)
+        host.configure_hostname()
+        time.sleep(1)
+        index += 1
 
 
 def get_parser(path: str):
