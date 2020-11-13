@@ -22,6 +22,10 @@ def main():
         sys.exit(1)
 
     print(ZOTIKOS_PARSER.get_ipv4_addrs())
+    print(ZOTIKOS_PARSER.get_hostnames())
+    print(ZOTIKOS_PARSER.get_logon_banner())
+    print(ZOTIKOS_PARSER.get_vlans_names())
+    print(ZOTIKOS_PARSER.get_vlans_number())
 
 
 def get_parser(path: str):
