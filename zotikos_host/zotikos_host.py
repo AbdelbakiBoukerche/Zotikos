@@ -2,7 +2,6 @@ from netmiko import ConnectHandler
 from netmiko.ssh_exception import NetmikoAuthenticationException
 from netmiko.ssh_exception import NetmikoTimeoutException
 from paramiko.ssh_exception import SSHException
-import time
 import logging
 from zotikos_parser import zotikos_parser
 
