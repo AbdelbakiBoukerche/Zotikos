@@ -24,6 +24,7 @@ class ZotikosHost:
             self.shell = ConnectHandler(device_type='cisco_ios',
                                         host=ip_addr, username=usr,
                                         password=passwd, secret=enabled_passwd)
+            self.shell.enable()
             self.is_alive = True
         except NetmikoAuthenticationException as err:
             self.CORE_LOGGER.error(err)
@@ -34,8 +35,6 @@ class ZotikosHost:
         except SSHException as err:
             self.CORE_LOGGER.error(err)
             self.is_alive = False
-
-        self.shell.enable()
 
     def __del__(self):
         if self.is_alive:
