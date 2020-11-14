@@ -56,7 +56,8 @@ def main(argv):
     for ip_addr in ZOTIKOS_PARSER.get_ipv4_addrs():
         host = ZH.ZotikosHost(ip_addr, index, ZOTIKOS_PARSER, username,
                               passwd, enabled_passwd)
-        host.configure_hostname()
+        if host.is_alive:
+            host.configure_hostname()
         time.sleep(1)
         index += 1
 

@@ -19,17 +19,21 @@ class ZotikosHost:
         self.IP_ADDR = ip_addr
         self.PARSER = parser
         self.index = index
-
+        self.is_alive = False
         try:
             self.shell = ConnectHandler(device_type='cisco_ios',
                                         host=ip_addr, username=usr,
                                         password=passwd, secret=enabled_passwd)
+            self.is_alive = True
         except NetmikoAuthenticationException as err:
             self.CORE_LOGGER.error(err)
+            self.is_alive = False
         except NetmikoTimeoutException as err:
             self.CORE_LOGGER.error(err)
+            self.is_alive = False
         except SSHException as err:
             self.CORE_LOGGER.error(err)
+            self.is_alive = False
 
         self.shell.enable()
 
