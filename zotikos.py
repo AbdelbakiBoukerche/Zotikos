@@ -57,7 +57,9 @@ def main(argv):
         host = ZH.ZotikosHost(ip_addr, index, ZOTIKOS_PARSER, username,
                               passwd, enabled_passwd)
         if host.is_alive:
+            host.configure_logon_banner()
             host.configure_hostname()
+            host.configure_vlans()
         time.sleep(1)
         index += 1
 

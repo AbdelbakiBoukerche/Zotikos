@@ -40,7 +40,7 @@ class ZotikosParser:
             raise zotikos_exceptions.ZotikosParserOptionNotFound(
                 msg="No hostname option found in the GENERAL section")
 
-    def get_logon_banner(self) -> list:
+    def get_logon_banner(self) -> str:
         if self.__config_file.has_option('GENERAL', 'banner'):
             return self.__config_file['GENERAL']['banner']
         else:

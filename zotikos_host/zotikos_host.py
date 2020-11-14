@@ -3,6 +3,7 @@ from netmiko.ssh_exception import NetmikoAuthenticationException
 from netmiko.ssh_exception import NetmikoTimeoutException
 from paramiko.ssh_exception import SSHException
 import logging
+import time
 from zotikos_parser import zotikos_parser
 
 
@@ -48,3 +49,23 @@ class ZotikosHost:
             self.shell.send_config_set(cmd, exit_config_mode=False)
         except Exception as err:
             self.CORE_LOGGER.error(err)
+
+    def configure_logon_banner(self):
+        cmd = 'banner motd ' + ' % ' + str(self.PARSER.get_logon_banner()) \
+            + ' %'
+        try:
+            self.shell.send_config_set(cmd, exit_config_mode=False)
+        except Exception as err:
+            self.CORE_LOGGER.error(err)
+
+    def configure_vlans(self):
+        time.sleep(0.33)
+        for number, name in zip(self.PARSER.get_vlans_number(),
+                                self.PARSER.get_vlans_names()):
+            create_vlan_cmd = 'vlan ' + str(number)
+            name_vlan_cmd = 'name ' + str(name)
+            cmd = [create_vlan_cmd, name_vlan_cmd]
+            try:
+                self.shell.send_config_set(cmd, exit_config_mode=False)
+            except Exception as err:
+                self.CORE_LOGGER.error(err)
