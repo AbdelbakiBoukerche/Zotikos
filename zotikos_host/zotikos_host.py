@@ -38,7 +38,10 @@ class ZotikosHost:
         self.shell.enable()
 
     def __del__(self):
-        self.shell.disconnect()
+        try:
+            self.shell.disconnect()
+        except NetmikoTimeoutException as err:
+            self.CORE_LOGGER.error((err))
 
     def configure_hostname(self):
         cmd = 'hostname ' + self.PARSER.get_hostnames()[self.index]
